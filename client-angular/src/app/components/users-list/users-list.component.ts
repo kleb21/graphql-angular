@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { GraphqlServiceService } from "../../services/graphql-service.service";
+import { Component, inject, OnInit } from "@angular/core";
+import { UserListService } from "./services/users-list.serivce";
+import { SignalsService } from "../../services/signals.service";
 
 @Component({
   selector: "app-users-list",
@@ -8,24 +9,32 @@ import { GraphqlServiceService } from "../../services/graphql-service.service";
 })
 export class UsersListComponent implements OnInit {
   public data: any;
-  public updateForm: boolean = false;
 
-  constructor(private graphqlServiceService: GraphqlServiceService) {}
+  private usersListService: UserListService = inject(UserListService);
+  private signalsService: SignalsService = inject(SignalsService);
 
   ngOnInit(): void {
     this.getData();
   }
 
-  getData() {
-    this.graphqlServiceService.getUsers().subscribe((data) => {
-      this.data = data;
-      console.log(data);
+  getData(): void {
+    this.usersListService.getUsersList().subscribe((data) => {
+      this.data = data.data.users;
     });
   }
 
-  deleteUser(id: string) {
-    this.graphqlServiceService.deleteUser(id).subscribe(() => {
+  createUser() {
+    this.signalsService.setBooleanSignal(false);
+  }
+
+  deleteUser(id: string): void {
+    this.usersListService.deleteUserList(id).subscribe(() => {
       this.getData();
     });
+  }
+
+  updateUser(id: string): void {
+    this.signalsService.setBooleanSignal(true);
+    this.signalsService.setIdtoUpdate(id);
   }
 }

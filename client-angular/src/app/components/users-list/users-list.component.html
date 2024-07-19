@@ -1,6 +1,7 @@
 <div class="flex flex-row-reverse m-5">
   <a
-    routerLink="/add-user"
+    routerLink="/user-details"
+    (click)="createUser()"
     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
   >
     Add New User
@@ -45,7 +46,8 @@
             Delete
           </button>
           <button
-            [routerLink]="['edit-user', infoUser.id]"
+            routerLink="/user-details"
+            (click)="updateUser(infoUser.id)"
             class="bg-gray-500 text-white font-bold py-2 px-4 rounded-full"
           >
             Edit User Name

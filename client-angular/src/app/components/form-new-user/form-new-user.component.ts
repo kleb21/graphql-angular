@@ -1,10 +1,9 @@
 import { Component } from "@angular/core";
 import { Form, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {
-  GraphqlServiceService,
-  Nationality,
-} from "../../services/graphql-service.service";
-import { BehaviorSubject } from "rxjs";
+import { GraphqlServiceService } from "../../services/graphql-service.service";
+import { UserActionsService } from "./services/user-actions.service";
+import { Nationality } from "../../shared/nationalties";
+import { SignalsService } from "../../services/signals.service";
 
 @Component({
   selector: "app-form-new-user",
@@ -14,10 +13,13 @@ import { BehaviorSubject } from "rxjs";
 export class FormNewUserComponent {
   public UserForm!: FormGroup;
   public nationalities = Object.values(Nationality);
+  public isUpdating: boolean = false;
+  public userId: string = "";
 
   constructor(
     private fb: FormBuilder,
-    private graphqlService: GraphqlServiceService
+    private userActionsService: UserActionsService,
+    private signalsService: SignalsService
   ) {
     this.UserForm = this.fb.group({
       name: ["", Validators.required],
@@ -25,6 +27,9 @@ export class FormNewUserComponent {
       age: ["", Validators.required],
       nationality: ["", Validators.required],
     });
+
+    this.isUpdating = this.signalsService.getBooleanSignal()();
+    this.userId = this.signalsService.getIdtoUpdate()();
   }
 
   createUser() {
@@ -35,6 +40,16 @@ export class FormNewUserComponent {
       nationality: this.UserForm.get("nationality")?.value,
     };
 
-    this.graphqlService.createUser(input).subscribe();
+    this.userActionsService.createUser(input).subscribe();
+  }
+
+  updateUser() {
+    let userName = this.UserForm.get("username")?.value;
+    const variables = {
+      id: this.userId.toString(),
+      newUsername: userName,
+    };
+
+    this.userActionsService.updateUser(variables).subscribe();
   }
 }
