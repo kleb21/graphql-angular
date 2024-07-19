@@ -5,7 +5,7 @@ import { HttpLink } from 'apollo-angular/http';
 import { HttpHeaders } from '@angular/common/http';
 
 
-const uri = 'http://localhost:4000/graphql'; // <-- add the URL of the GraphQL server here
+const uri = 'http://localhost:4000/graphql';
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
     const headers = new HttpHeaders({
         "Access-Control-Allow-Origin": "*",

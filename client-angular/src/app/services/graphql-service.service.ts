@@ -19,7 +19,6 @@ export class GraphqlServiceService {
     mutation: TypedDocumentNode<unknown, unknown>,
     vars?: any
   ): Observable<any> {
-    debugger;
     return this.apollo.mutate({
       mutation: mutation,
       variables: vars,
