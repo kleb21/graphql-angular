@@ -8,12 +8,10 @@ import { Observable } from "rxjs";
 export class GraphqlServiceService {
   constructor(private apollo: Apollo) {}
 
-  query(
-    query: TypedDocumentNode<unknown, unknown>,
-  ): Observable<any> {
+  query(query: TypedDocumentNode<unknown, unknown>): Observable<any> {
     return this.apollo.query({
       query: query,
-      fetchPolicy: 'network-only'
+      fetchPolicy: "network-only",
     });
   }
 
@@ -25,7 +23,7 @@ export class GraphqlServiceService {
     return this.apollo.mutate({
       mutation: mutation,
       variables: vars,
-      fetchPolicy: 'network-only'
+      fetchPolicy: "network-only",
     });
   }
 }
