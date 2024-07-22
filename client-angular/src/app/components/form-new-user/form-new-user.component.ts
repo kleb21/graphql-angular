@@ -1,9 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, inject, Signal } from "@angular/core";
 import { Form, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { GraphqlServiceService } from "../../services/graphql-service.service";
 import { UserActionsService } from "./services/user-actions.service";
 import { Nationality } from "../../shared/nationalties";
 import { SignalsService } from "../../services/signals.service";
+import { Users } from "../../shared/Users.interface";
 
 @Component({
   selector: "app-form-new-user",
@@ -11,13 +12,14 @@ import { SignalsService } from "../../services/signals.service";
   styles: ``,
 })
 export class FormNewUserComponent {
-  public UserForm!: FormGroup;
+  public UserForm!: FormGroup<Users>;
   public nationalities = Object.values(Nationality);
-  public isUpdating: boolean = false;
-  public userId: string = "";
+  public isUpdating
+  public userId!: Signal<string>;
+
+  private readonly fb = inject(FormBuilder).nonNullable;
 
   constructor(
-    private fb: FormBuilder,
     private userActionsService: UserActionsService,
     private signalsService: SignalsService
   ) {
@@ -28,25 +30,27 @@ export class FormNewUserComponent {
       nationality: ["", Validators.required],
     });
 
-    this.isUpdating = this.signalsService.getBooleanSignal()();
-    this.userId = this.signalsService.getIdtoUpdate()();
+    this.isUpdating = this.signalsService.createOrEditSignal;
+    this.isUpdating();
+    debugger
+    this.userId = this.signalsService.IdtoUpdate;
   }
 
   createUser() {
     const input = {
-      name: this.UserForm.get("name")?.value as string,
-      username: this.UserForm.get("username")?.value as string,
-      age: this.UserForm.get("age")?.value as number,
-      nationality: this.UserForm.get("nationality")?.value,
+      name: this.UserForm.controls.name.value,
+      username: this.UserForm.controls.username.value ,
+      age: this.UserForm.controls.age.value ,
+      nationality: this.UserForm.controls.nationality.value,
     };
 
     this.userActionsService.createUser(input).subscribe();
   }
 
   updateUser() {
-    let userName = this.UserForm.get("username")?.value;
+    let userName = this.UserForm.controls.username.value;
     const variables = {
-      id: this.userId.toString(),
+      id: this.userId(),
       newUsername: userName,
     };
 

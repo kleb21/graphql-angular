@@ -24,7 +24,7 @@ export class UsersListComponent implements OnInit {
   }
 
   createUser() {
-    this.signalsService.setBooleanSignal(false);
+    this.signalsService.setcreateOrEditSignal(false);
   }
 
   deleteUser(id: string): void {
@@ -34,7 +34,7 @@ export class UsersListComponent implements OnInit {
   }
 
   updateUser(id: string): void {
-    this.signalsService.setBooleanSignal(true);
+    this.signalsService.setcreateOrEditSignal(true);
     this.signalsService.setIdtoUpdate(id);
   }
 }

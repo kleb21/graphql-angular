@@ -13,9 +13,11 @@ import { FormNewUserComponent } from "./components/form-new-user/form-new-user.c
 import { UsersListComponent } from "./components/users-list/users-list.component";
 import { UserListService } from "./components/users-list/services/users-list.serivce";
 import { UserActionsService } from "./components/form-new-user/services/user-actions.service";
+import { GetUsersRxjsService } from "./components/get-users-rxjs/services/get-users-rxjs.service";
+import { GetUsersRxjsComponent } from "./components/get-users-rxjs/get-users-rxjs.component";
 
 @NgModule({
-  declarations: [AppComponent, FormNewUserComponent, UsersListComponent],
+  declarations: [AppComponent, FormNewUserComponent, UsersListComponent, GetUsersRxjsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,6 +41,7 @@ import { UserActionsService } from "./components/form-new-user/services/user-act
     },
     UserListService,
     UserActionsService,
+    GetUsersRxjsService
   ],
   bootstrap: [AppComponent],
 })

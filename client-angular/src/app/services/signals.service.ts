@@ -1,4 +1,4 @@
-import { Injectable, signal, WritableSignal } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 
 @Injectable({
   providedIn: "root",
@@ -6,21 +6,17 @@ import { Injectable, signal, WritableSignal } from "@angular/core";
 export class SignalsService {
   constructor() {}
 
-  private booleanSignal: WritableSignal<boolean> = signal(false);
+  private readonly _createOrEditFlag = signal(false);
+  private readonly idSignal = signal("");
 
-  getBooleanSignal() {
-    return this.booleanSignal;
+  public createOrEditSignal = this._createOrEditFlag.asReadonly();
+
+  setcreateOrEditSignal(value: boolean) {
+    this._createOrEditFlag.set(value);
   }
 
-  setBooleanSignal(value: boolean) {
-    this.booleanSignal.set(value);
-  }
 
-  private idSignal: WritableSignal<string> = signal("");
-
-  getIdtoUpdate() {
-    return this.idSignal;
-  }
+  public IdtoUpdate = this.idSignal.asReadonly();
 
   setIdtoUpdate(value: string) {
     this.idSignal.set(value);
