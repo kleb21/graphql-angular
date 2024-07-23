@@ -15,9 +15,11 @@ import { UserListService } from "./components/users-list/services/users-list.ser
 import { UserActionsService } from "./components/form-new-user/services/user-actions.service";
 import { GetUsersRxjsService } from "./components/get-users-rxjs/services/get-users-rxjs.service";
 import { GetUsersRxjsComponent } from "./components/get-users-rxjs/get-users-rxjs.component";
+import { SideNavExerciseService } from "./components/side-nav-exercise/services/side-nav-exercise.service";
+import { SideNavExerciseComponent } from "./components/side-nav-exercise/side-nav-exercise.component";
 
 @NgModule({
-  declarations: [AppComponent, FormNewUserComponent, UsersListComponent, GetUsersRxjsComponent],
+  declarations: [AppComponent, FormNewUserComponent, UsersListComponent, GetUsersRxjsComponent, SideNavExerciseComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -41,7 +43,8 @@ import { GetUsersRxjsComponent } from "./components/get-users-rxjs/get-users-rxj
     },
     UserListService,
     UserActionsService,
-    GetUsersRxjsService
+    GetUsersRxjsService,
+    SideNavExerciseService
   ],
   bootstrap: [AppComponent],
 })

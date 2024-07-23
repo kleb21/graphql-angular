@@ -1,0 +1,7 @@
+<nav class="navbar" [class.visible]="navbarVisible()">
+    <button (click)="toggleNavbar()">Toggle Navbar</button>
+    <ul *ngIf="navbarVisible()">
+      <li><a routerLink="" >GraphqlExercise</a></li>
+      <li><a routerLink="/users-rxjs" >RXJS Exercise</a></li>
+    </ul>
+  </nav>

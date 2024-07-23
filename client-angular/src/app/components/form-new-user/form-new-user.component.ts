@@ -14,7 +14,7 @@ import { Users } from "../../shared/Users.interface";
 export class FormNewUserComponent {
   public UserForm!: FormGroup<Users>;
   public nationalities = Object.values(Nationality);
-  public isUpdating
+  public isUpdating;
   public userId!: Signal<string>;
 
   private readonly fb = inject(FormBuilder).nonNullable;
@@ -32,15 +32,14 @@ export class FormNewUserComponent {
 
     this.isUpdating = this.signalsService.createOrEditSignal;
     this.isUpdating();
-    debugger
     this.userId = this.signalsService.IdtoUpdate;
   }
 
   createUser() {
     const input = {
       name: this.UserForm.controls.name.value,
-      username: this.UserForm.controls.username.value ,
-      age: this.UserForm.controls.age.value ,
+      username: this.UserForm.controls.username.value,
+      age: this.UserForm.controls.age.value,
       nationality: this.UserForm.controls.nationality.value,
     };
 
