@@ -17,9 +17,19 @@ import { GetUsersRxjsService } from "./components/get-users-rxjs/services/get-us
 import { GetUsersRxjsComponent } from "./components/get-users-rxjs/get-users-rxjs.component";
 import { SideNavExerciseService } from "./components/side-nav-exercise/services/side-nav-exercise.service";
 import { SideNavExerciseComponent } from "./components/side-nav-exercise/side-nav-exercise.component";
+import { FormValidatorComponent } from "./shared/components/form-validator/form-validator.component";
+import { provideToastr, ToastrModule } from "ngx-toastr";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent, FormNewUserComponent, UsersListComponent, GetUsersRxjsComponent, SideNavExerciseComponent],
+  declarations: [
+    AppComponent,
+    FormNewUserComponent,
+    UsersListComponent,
+    GetUsersRxjsComponent,
+    SideNavExerciseComponent,
+    FormValidatorComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -27,6 +37,8 @@ import { SideNavExerciseComponent } from "./components/side-nav-exercise/side-na
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [
     {
@@ -44,7 +56,8 @@ import { SideNavExerciseComponent } from "./components/side-nav-exercise/side-na
     UserListService,
     UserActionsService,
     GetUsersRxjsService,
-    SideNavExerciseService
+    SideNavExerciseService,
+    provideToastr({timeOut: 9000, preventDuplicates: true})    
   ],
   bootstrap: [AppComponent],
 })

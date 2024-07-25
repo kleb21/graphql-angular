@@ -1,11 +1,10 @@
-import { Component, inject, Signal } from "@angular/core";
-import { Form, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { GraphqlServiceService } from "../../services/graphql-service.service";
+import { Component, inject, OnInit, Signal } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UserActionsService } from "./services/user-actions.service";
-import { Nationality } from "../../shared/nationalties";
+import { Nationality } from "../../shared/models/nationalties";
 import { SignalsService } from "../../services/signals.service";
-import { Users } from "../../shared/Users.interface";
-
+import { Users } from "../../shared/models/Users.interface";
+import { ToastrService } from "ngx-toastr";
 @Component({
   selector: "app-form-new-user",
   templateUrl: "./form-new-user.component.html",
@@ -18,6 +17,7 @@ export class FormNewUserComponent {
   public userId!: Signal<string>;
 
   private readonly fb = inject(FormBuilder).nonNullable;
+  private toastrService: ToastrService = inject(ToastrService);
 
   constructor(
     private userActionsService: UserActionsService,
@@ -29,9 +29,7 @@ export class FormNewUserComponent {
       age: ["", Validators.required],
       nationality: ["", Validators.required],
     });
-
     this.isUpdating = this.signalsService.createOrEditSignal;
-    this.isUpdating();
     this.userId = this.signalsService.IdtoUpdate;
   }
 
@@ -43,7 +41,9 @@ export class FormNewUserComponent {
       nationality: this.UserForm.controls.nationality.value,
     };
 
-    this.userActionsService.createUser(input).subscribe();
+    this.userActionsService.createUser(input).subscribe(() => {
+      this.toastrService.success('User Created', 'Success');
+    });
   }
 
   updateUser() {
@@ -53,6 +53,20 @@ export class FormNewUserComponent {
       newUsername: userName,
     };
 
-    this.userActionsService.updateUser(variables).subscribe();
+    this.userActionsService.updateUser(variables).subscribe(() => {
+      this.toastrService.success('User Updated', 'Success');
+    });
   }
+
+  isFieldInvalid(field: keyof Users): boolean {
+    return (
+      this.UserForm.controls[field].invalid &&
+      (this.UserForm.controls[field].touched || this.UserForm.controls[field].dirty)
+    );
+  }
+
+  getFieldClass(field: keyof Users): string {
+    return this.isFieldInvalid(field) ? 'border-red-500' : 'border-gray-300';
+  }
+
 }

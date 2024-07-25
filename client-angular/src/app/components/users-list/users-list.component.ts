@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { UserListService } from "./services/users-list.serivce";
 import { SignalsService } from "../../services/signals.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-users-list",
@@ -12,6 +13,7 @@ export class UsersListComponent implements OnInit {
 
   private usersListService: UserListService = inject(UserListService);
   private signalsService: SignalsService = inject(SignalsService);
+  private toastrService: ToastrService = inject(ToastrService);
 
   ngOnInit(): void {
     this.getData();
@@ -30,6 +32,7 @@ export class UsersListComponent implements OnInit {
   deleteUser(id: string): void {
     this.usersListService.deleteUserList(id).subscribe(() => {
       this.getData();
+      this.toastrService.success('Success', 'User Deleted')
     });
   }
 

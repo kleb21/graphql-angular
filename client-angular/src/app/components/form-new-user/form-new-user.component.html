@@ -3,63 +3,74 @@
   class="max-w-lg mx-auto p-4 bg-white rounded shadow-md mt-5"
 >
   <div *ngIf="!isUpdating()" class="mb-4">
-    <label for="name" class="block text-gray-700 text-sm font-bold mb-2"
-      >Name</label
-    >
+    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
     <input
       id="name"
       formControlName="name"
       type="text"
       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      [ngClass]="getFieldClass('name')"
     />
+    <app-form-validator
+      *ngIf="isFieldInvalid('name')"
+      [fieldName]="'Name'"
+    ></app-form-validator>
   </div>
 
   <div class="mb-4">
-    <label for="username" class="block text-gray-700 text-sm font-bold mb-2"
-      >Username</label
-    >
+    <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
     <input
       id="username"
       formControlName="username"
       type="text"
       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      [ngClass]="getFieldClass('username')"
     />
+    <app-form-validator
+      *ngIf="isFieldInvalid('username')"
+      [fieldName]="'User Name'"
+    ></app-form-validator>
   </div>
 
   <div *ngIf="!isUpdating()" class="mb-4">
-    <label for="age" class="block text-gray-700 text-sm font-bold mb-2"
-      >Age</label
-    >
+    <label for="age" class="block text-gray-700 text-sm font-bold mb-2">Age</label>
     <input
       id="age"
       formControlName="age"
       type="number"
       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      [ngClass]="getFieldClass('age')"
     />
+    <app-form-validator
+      *ngIf="isFieldInvalid('age')"
+      [fieldName]="'Age'"
+    ></app-form-validator>
   </div>
 
   <div *ngIf="!isUpdating()" class="mb-4">
-    <label for="nationality" class="block text-gray-700 text-sm font-bold mb-2"
-      >Nationality</label
-    >
+    <label for="nationality" class="block text-gray-700 text-sm font-bold mb-2">Nationality</label>
     <select
       id="nationality"
       formControlName="nationality"
       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      [ngClass]="getFieldClass('nationality')"
     >
-      <option *ngFor="let nationality of nationalities" [value]="nationality">
-        {{ nationality }}
-      </option>
+      <option *ngFor="let nationality of nationalities" [value]="nationality">{{ nationality }}</option>
     </select>
+    <app-form-validator
+      *ngIf="isFieldInvalid('nationality')"
+      [fieldName]="'Nationality'"
+    ></app-form-validator>
   </div>
 
   <div class="flex items-center justify-between">
-    <a
+    <button
       (click)="isUpdating() ? updateUser() : createUser()"
+      [disabled]="(!UserForm.valid && !isUpdating()) || (isUpdating() && !UserForm.controls.username.valid)"
       routerLink=""
       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
     >
       {{ isUpdating() ? "Update User" : "Create User" }}
-    </a>
+    </button>
   </div>
 </form>

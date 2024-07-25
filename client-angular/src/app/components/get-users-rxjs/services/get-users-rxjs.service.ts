@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { forkJoin, map, mergeMap, Observable, switchMap } from 'rxjs';
-import { User, UserWithPosts } from '../../../shared/Users.interface';
+import { UserWithPosts, User, Post } from '../../../shared/models/Users.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,21 +12,21 @@ export class GetUsersRxjsService {
   
   private http = inject(HttpClient);
 
-  getUsersSwitchMap(): Observable<UserWithPosts | unknown> {
+  getUsersSwitchMap(index: number): Observable<UserWithPosts> {
     return this.http.get<User[]>(`${this.apiUrl}/users`).pipe(
       switchMap(users => {
-        const fullData$ = users.map(user => {
-          return this.http.get(`${this.apiUrl}/posts?userId=${user.id}`).pipe(
+        const user = users.find(user => user.id === index);
+        if(user){
+          return this.http.get<Post[]>(`${this.apiUrl}/posts?userId=${user?.id}`).pipe(
             map(posts => ({
               ...user,
               posts
             }))
           );
-        });
-        return forkJoin(fullData$);
+        } 
+        return []
       })
     );
   }
-
   
 }
