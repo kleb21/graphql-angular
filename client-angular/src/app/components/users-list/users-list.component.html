@@ -8,7 +8,7 @@
   </a>
 </div>
 
-<div class="container mx-auto px-4 py-6">
+<!-- <div class="container mx-auto px-4 py-6">
   <table class="min-w-full border-collapse block md:table">
     <thead class="block md:table-header-group">
       <tr class="border border-gray-200 md:border-none block md:table-row">
@@ -23,7 +23,7 @@
     </thead>
     <tbody class="block md:table-row-group">
       <tr
-        *ngFor="let infoUser of data"
+        *ngFor="let infoUser of data; trackBy: trackById"
         class="border border-gray-200 md:border-none block md:table-row"
       >
         <td class="p-2 md:table-cell">{{ infoUser.id }}</td>
@@ -54,6 +54,59 @@
           </button>
         </td>
       </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<div class="container mx-auto px-4 py-6">
+  <table class="min-w-full border-collapse block md:table">
+    <thead class="block md:table-header-group">
+      <tr class="border border-gray-200 md:border-none block md:table-row">
+        <th class="p-2 text-left bg-gray-100 md:table-cell">ID</th>
+        <th class="p-2 text-left bg-gray-100 md:table-cell">Name</th>
+        <th class="p-2 text-left bg-gray-100 md:table-cell">Username</th>
+        <th class="p-2 text-left bg-gray-100 md:table-cell">Age</th>
+        <th class="p-2 text-left bg-gray-100 md:table-cell">Nationality</th>
+        <th class="p-2 text-left bg-gray-100 md:table-cell">Favorite Movies</th>
+        <th class="p-2 text-left bg-gray-100 md:table-cell">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="block md:table-row-group">
+      @for(infoUser of data; track infoUser.id){
+      <tr class="border border-gray-200 md:border-none block md:table-row">
+            <td class="p-2 md:table-cell">{{ infoUser.id }}</td>
+            <td class="p-2 md:table-cell">{{ infoUser.name }}</td>
+            <td class="p-2 md:table-cell">{{ infoUser.username }}</td>
+            <td class="p-2 md:table-cell">{{ infoUser.age }}</td>
+            <td class="p-2 md:table-cell">{{ infoUser.nationality }}</td>
+            <td class="p-2 md:table-cell">
+              <ul>
+                @for(movie of infoUser.favoriteMovies; track movie.name) {
+                  <li class="list-disc">
+                    {{ movie.name }}
+                  </li>
+                }
+              </ul>
+            </td>
+            <td>
+              <button
+                (click)="deleteUser(infoUser.id)"
+                class="bg-red-500 text-white font-bold py-2 px-4 rounded-full"
+              >
+                Delete
+              </button>
+              <button
+                routerLink="/user-details"
+                (click)="updateUser(infoUser.id)"
+                class="bg-gray-500 text-white font-bold py-2 px-4 rounded-full"
+              >
+                Edit User Name
+              </button>
+            </td>
+          </tr>
+        } @empty { 
+          No Users Found in Data Base
+        }
     </tbody>
   </table>
 </div>

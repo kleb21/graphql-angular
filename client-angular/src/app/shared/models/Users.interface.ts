@@ -6,6 +6,13 @@ export interface Users {
   age: FormControl<string>;
   nationality: FormControl<string>;
 }
+export interface UserList {
+  id: number;
+  name: string;
+  username: string;
+  age: string;
+  nationality: string;
+}
 
 export interface Geo {
     lat: string;
