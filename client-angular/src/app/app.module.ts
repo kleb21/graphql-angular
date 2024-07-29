@@ -20,6 +20,7 @@ import { SideNavExerciseComponent } from "./components/side-nav-exercise/side-na
 import { FormValidatorComponent } from "./shared/components/form-validator/form-validator.component";
 import { provideToastr, ToastrModule } from "ngx-toastr";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PercentagePipe } from "./shared/custom-pipes/percentage.pipe";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     GetUsersRxjsComponent,
     SideNavExerciseComponent,
     FormValidatorComponent,
+
+    //pipes
+    PercentagePipe
   ],
   imports: [
     BrowserModule,

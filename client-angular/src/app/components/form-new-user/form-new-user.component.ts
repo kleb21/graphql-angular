@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Signal } from "@angular/core";
+import { Component, inject, Signal } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UserActionsService } from "./services/user-actions.service";
 import { Nationality } from "../../shared/models/nationalties";
@@ -47,7 +47,8 @@ export class FormNewUserComponent {
   }
 
   updateUser() {
-    let userName = this.UserForm.controls.username.value;
+    
+    const userName = this.UserForm.controls.username.value;
     const variables = {
       id: this.userId(),
       newUsername: userName,

@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-import { forkJoin, map, mergeMap, Observable, of, switchMap } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { UserWithPosts, User, Post } from '../../../shared/models/Users.interface';
-import { toSignal } from '@angular/core/rxjs-interop';
 @Injectable({
   providedIn: 'root'
 })
@@ -27,7 +26,7 @@ export class GetUsersRxjsService {
         } 
         return of(null);
       })
-    )
+    );
   }
   
 }
