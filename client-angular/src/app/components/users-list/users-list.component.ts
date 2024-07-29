@@ -34,7 +34,7 @@ export class UsersListComponent implements OnInit {
   deleteUser(id: string): void {
     this.usersListService.deleteUserList(id).subscribe(() => {
       this.getData();
-      this.toastrService.success('Success', 'User Deleted')
+      this.toastrService.success('Success', 'User Deleted');
     });
   }
 

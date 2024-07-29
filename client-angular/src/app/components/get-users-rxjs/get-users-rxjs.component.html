@@ -1,4 +1,4 @@
-<div class="p-4">
+<!-- <div class="p-4">
     <div class="mb-4">
       <label for="userId" class="block text-sm font-medium text-gray-700">User ID</label>
       <input
@@ -15,7 +15,7 @@
     <ng-template #notFound>
       <pre>User Not Found</pre>
     </ng-template> 
-</div>
+</div> -->
 
 <div class="p-4">
   <div class="mb-4">
@@ -28,9 +28,9 @@
       class="mt-1 block px-3 py-2 border border-gray-300 rounded-md shadow-sm"
     />
   </div>
-  @if (userWithPosts | async; as userData) {
+  @if (userWithPosts$() ; as userData) {
     <pre>{{ userData | json }}</pre>
   } @else {
-    User Not Found
+    <h1>not found datra</h1>
   }
 </div>
